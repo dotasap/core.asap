@@ -1,0 +1,734 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-size: 22px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: white;
+  color: black;
+  padding: 2rem;
+}
+
+body {
+  overflow-y: auto;
+}
+
+
+
+
+button, input, select  {
+  background: white;
+  color: black;
+  border: 2px solid black;
+  padding: 0.5rem 1rem;
+  margin: 5px 0px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.login-button {
+  margin-top: 0.5rem;
+  height: 2.7rem;
+  background-color: #BBB;
+}
+
+button:hover {
+  background: black;
+  color: white;
+}
+
+button.active {
+  opacity: 1;
+  cursor: pointer;
+}
+
+button.inactive {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid black;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  width: 90%;
+  min-height: 80vh;
+  padding: 2rem;
+  border: 4px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+
+.sub-container {
+  padding: 1rem;
+  border: 4px solid black;
+}
+
+/* For small screens: limit max-width */
+@media (max-width: 767px) {
+  .container {
+    max-width: 500px;
+  }
+}
+
+/* On larger screens, allow 50% width with no artificial limit */
+@media (min-width: 768px) {
+  .container {
+    width: 50%;
+  }
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #333;
+}
+
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.notification-message {
+  color: rgb(246, 170, 170);
+}
+
+.box-header-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: white;
+}
+
+.content-container {
+  padding-top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+} 
+
+.instructions-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0 0 0;
+}
+
+.instructions-list li {
+  text-align: left;
+  gap: 0.8rem;
+  font-size: 1.08rem;
+  margin-bottom: 1.1rem;
+  color: #222;
+  line-height: 1.5;
+}
+
+.step-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: #222;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.header-title {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.header-spacer {
+  width: 48px;
+}
+
+.wallet-connect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.wallet-connect p {
+  margin: 0;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.wallet-address {
+  font-family: monospace;
+  word-break: break-all;
+  text-align: center;
+}
+
+.settings-section {
+  margin-bottom: 2rem;
+}
+
+.settings-section h2 {
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input, select  {
+  box-sizing: border-box;
+}
+
+.login-input {
+  padding: 0.8rem;
+  margin-top: 0rem;
+  margin-bottom: 0rem;
+  border-radius: 4px;
+}
+
+.warning-message {
+  color: var(--warning-color);
+  text-align: center;
+  padding: 1rem;
+  border: 1px solid var(--warning-color);
+  border-radius: 4px;
+  background-color: var(--warning-bg);
+}
+
+.wallet-adapter-button {
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+.wallet-adapter-button:hover {
+  background-color: white !important;
+  color: black !important;
+}
+
+.dark .wallet-adapter-button {
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid white !important;
+}
+
+.dark .wallet-adapter-button:hover {
+  background-color: black !important;
+  color: white !important;
+}
+
+.info-message {
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.linked-wallets {
+  display: flex;
+  flex-direction: column;
+  margin-top: .5rem;
+}
+
+.linked-wallets .wallet-address {
+  padding: 0.8rem;
+  border: 1px dashed black;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+}
+
+.tab-button {
+  margin: 0 0.05rem;
+}
+
+.tab-button.active {
+  background-color: black;
+  color: white;
+}
+
+.tab-icon {
+  margin-right: 8px;
+  font-size: 1.1em;
+}
+
+.section-icon {
+  font-size: 1.2em;
+}
+
+.info-card {
+  margin: 3rem 0px;
+}
+
+.info-group {
+  margin: 30px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.info-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.info-icon {
+  font-size: 1.1em;
+}
+
+.info-value {
+  font-size: 1.1em;
+  padding: 8px 0;
+}
+
+.status-value {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.verified {
+  color: #10B981;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.not-verified {
+  color: #EF4444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-icon {
+  font-size: 1.2em;
+}
+
+.verify-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.button-icon {
+  font-size: 1.1em;
+}
+
+
+.bridge-addresses h3 {
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.2rem;
+}
+
+.bridge-address-group {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  border: 1px solid black;
+}
+
+.bridge-info {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  min-width: 0;
+}
+
+.chain-name {
+  font-weight: 600;
+  color: var(--text-color);
+  white-space: nowrap;
+}
+
+.bridge-address {
+  font-family: monospace;
+  color: var(--text-secondary);
+  word-break: break-all;
+  font-size: 1rem;
+  max-width: 60vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-button,
+.remove-button,
+.cancel-button,
+.save-button {
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+
+.add-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 1.5rem auto 0 auto;
+}
+
+/* Center the add button container */
+.bridge-addresses .add-button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bridge-address-group select {
+  width: 100%;
+  min-width: 180px;
+  max-width: 260px;
+  height: 2.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  appearance: none;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.bridge-address-group select:focus {
+  border-color: var(--primary-color, #222);
+}
+
+.dark .bridge-address-group select {
+  background: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.profile-card {
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(0,0,0,0.04);
+  max-width: 480px;
+}
+
+
+.profile-card-icon {
+  font-size: 2rem;
+  color: var(--primary-color);
+  margin-bottom: -7px;
+}
+
+.profile-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.profile-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-color);
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="password"],
+.profile-form select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+
+.profile-form input:focus {
+  outline: none;
+}
+
+.profile-submit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+  border: 1.5px solid black;
+}
+
+.success-message, .error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.success-message {
+  color: #15803d;
+  border: 1.5px solid #22c55e;
+}
+
+.error-message {
+  color: #b91c1c;
+  border: 1.5px solid #ef4444;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dark {
+  background-color: black;
+  color: white;
+}
+
+#root.dark {
+  background-color: black;
+  color: white;
+}
+
+.dark button,
+.dark input,
+.dark textarea,
+.dark select {
+  background: black;
+  color: white;
+  border: 2px solid white;
+}
+
+.dark .login-button {
+  background: #111;
+}
+
+.dark button:hover {
+  background: white;
+  color: black;
+}
+
+
+.dark .container {
+  border-color: white;
+}
+
+
+.dark .sub-container {
+  padding: 1rem;
+  border: 4px solid white;
+}
+
+.dark .token-item {
+  border-color: white;
+}
+
+.dark .token-item:hover {
+  background: white;
+  color: black;
+}
+
+.dark .box-header-row {
+  background: #000;
+  color: white;
+}
+.dark .instructions-list li {
+  color: #fff;
+  line-height: 1.5;
+}
+.dark .wallet-address {
+  border: 1px solid white;
+}
+.dark .linked-wallets .wallet-address {
+  border: 1px dashed white;
+}
+.dark .tab-button.active {
+  background-color: white;
+  color: black;
+}
+
+.dark .bridge-address-group {
+  border: 1px solid white;
+}
+
+
+.settings-form {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+.dark .settings-form {
+  border-color: white;
+}
+
+.wallet-connect {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+.dark .wallet-connect {
+  border-color: white;
+}
+
+.info-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 2px solid black;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.dark .info-message {
+  border-color: white;
+}
+
+.bridge-addresses {
+  margin-top: .5rem;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.settings-submit-button {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin: 1rem auto 0 auto;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+}
+
+.settings-submit-button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px) scale(1.03);
+}
+
+.settings-submit-button svg {
+  font-size: 1.5em;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
+  box-shadow: 0 0 0 1000px white inset !important;
+  -webkit-text-fill-color: black !important;
+  caret-color: black !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+.dark input:-webkit-autofill,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px black inset !important;
+  box-shadow: 0 0 0 1000px black inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

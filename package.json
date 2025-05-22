@@ -1,33 +1,22 @@
 {
-  "name": "asapsui",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "dotasap",
+  "version": "1.0.0",
+  "description": "A comprehensive blockchain transaction monitoring and processing system",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@mysten/bcs": "^1.6.1",
-    "@mysten/sui": "^1.29.1",
-    "bip39": "^3.1.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-icons": "^5.5.0"
+    "install:all": "npm run install:backend && npm run install:web && npm run install:wallet",
+    "install:backend": "cd backend-engine && npm install",
+    "install:web": "cd web-service && npm install",
+    "install:wallet": "cd demo-wallet && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:web\" \"npm run dev:wallet\"",
+    "dev:backend": "cd backend-engine && npm run dev",
+    "dev:web": "cd web-service && npm run dev",
+    "dev:wallet": "cd demo-wallet && npm run dev",
+    "build": "npm run build:backend && npm run build:web && npm run build:wallet",
+    "build:backend": "cd backend-engine && npm run build",
+    "build:web": "cd web-service && npm run build",
+    "build:wallet": "cd demo-wallet && npm run build"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.0",
-    "@types/react": "^19.1.2",
-    "@types/react-dom": "^19.1.2",
-    "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^9.25.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
-    "globals": "^16.0.0",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.30.1",
-    "vite": "^6.3.5"
+    "concurrently": "^8.2.2"
   }
-}
+} 

@@ -1,54 +1,180 @@
-# React + TypeScript + Vite
+# .ASAP - Do more, with less effort... ASAP
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+dotASAP is a blockchain service that enables seamless token swaps, bridging across multiple blockchains and offramping to fiat right from your solana wallet - you do not have to leave your send interface to do more. The system consists of three main components:
 
-Currently, two official plugins are available:
+1. **Backend Engine**: Monitors and processes blockchain transactions
+2. **Web Service**: Provides a user interface and API endpoints
+3. **Demo Wallet**: A demonstration wallet for testing transactions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- 🔄 Cross-chain token swaps
+- 🌉 Bridge transactions between chains
+- 💱 Offramp to fiat currency
+- 🔍 Real-time transaction monitoring
+- 🔒 Secure wallet integration
+- 📱 Responsive web interface
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Prerequisites
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- Node.js (v18 or higher)
+- MongoDB
+- Solana CLI tools
+- Paystack account (for offramping)
+
+## Quick Start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dotasap/asap-engine
+   cd asap-engine
+   ```
+
+2. Install root dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Install dependencies for all services:
+   ```bash
+   npm run install:all
+   ```
+
+4. Set up environment variables:
+   ```bash
+   # Backend Engine
+   cp backend-engine/.env.example backend-engine/.env
+   # Web Service
+   cp web-service/.env.example web-service/.env
+   # Demo Wallet
+   cp demo-wallet/.env.example demo-wallet/.env
+   ```
+
+5. Update the environment variables with your configuration:
+   - Add your Solana wallet private key
+   - Add your Paystack API keys
+   - Configure MongoDB connection
+   - Set up JWT secret
+   - Add your ASAP domain address (this is just for demo)
+
+6. Start all services in development mode:
+   ```bash
+   npm run dev
+   ```
+
+The services will be available at:
+- Web Service: http://localhost:3000
+- Backend Engine: http://localhost:3001
+- Demo Wallet: http://localhost:5173
+
+## Project Structure
+
+```
+asap-engine/
+├── backend-engine/     # Transaction monitoring and processing
+├── web-service/        # Web interface and API endpoints
+├── demo-wallet/        # Demo wallet for testing
+└── package.json        # Root package.json for managing all services
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Services
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Backend Engine
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+The backend engine is responsible for:
+- Monitoring solana transactions
+- Processing swaps, bridges, and offramps
+- Managing refunds
+- Interfacing with external services
+
+Key features:
+- Bridge support (Solana, SUI)
+- Transaction monitoring
+- Automatic refund handling
+- Offramp integration with Paystack by Stripe
+
+### Web Service
+
+The web service provides:
+- User interface for managing swap and bridge preferences
+- API endpoints for the backend engine
+- User authentication and profile management
+- Bank details management
+
+Key features:
+- Next.js frontend
+- MongoDB database
+- JWT authentication
+- Paystack integration
+
+
+### Demo Wallet
+
+A demonstration wallet that supports so that it can be used to demonstrate memos:
+- Creating and managing wallets
+- Sending and receiving tokens
+- Viewing token balances
+- Network switching (Devnet/Mainnet)
+
+Key features:
+- React + Vite
+- Solana wallet integration
+- Token balance tracking
+- Network switching
+
+## Development
+
+### Running Individual Services
+
+```bash
+# Backend Engine
+cd backend-engine
+npm run dev
+
+# Web Service
+cd web-service
+npm run dev
+
+# Demo Wallet
+cd demo-wallet
+npm run dev
 ```
+
+### Building for Production
+
+```bash
+npm run build
+```
+
+## Environment Variables
+
+### Backend Engine (.env)
+- `DEV_URL`: Solana devnet RPC URL
+- `DEV2_URL`: Backup Solana devnet RPC URL
+- `PORT`: Server port (default: 3001)
+- `WEB_SERVICE_URL`: Web service URL
+- `SERVICE_TOKEN`: Service authentication token
+- `SOL_SWAP_WALLET_PRIVATE_KEY`: Solana wallet private key
+- `SUI_SECRET_KEY`: SUI wallet private key
+- `PAYSTACK_SECRET_KEY`: Paystack API key
+
+### Web Service (.env)
+- `MONGODB_URI`: MongoDB connection string
+- `JWT_SECRET`: JWT signing key
+- `SERVICE_TOKEN`: Service authentication token
+- `PAYSTACK_SECRET_KEY`: Paystack API key
+- `ASAP_DOMAIN`: ASAP domain address
+
+### Demo Wallet (.env for demo only) 
+- `VITE_ASAP_DOMAIN`: ASAP domain address
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgments
+
+- Solana Foundation
+- Paystack
+- Jupiter exchange
+- Wormhole Foundation

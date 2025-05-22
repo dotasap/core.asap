@@ -1,0 +1,43 @@
+{
+  "name": "backend-engine",
+  "version": "1.0.0",
+  "description": "Backend engine for transaction processing",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [
+    "solana",
+    "monitoring",
+    "transactions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@cetusprotocol/aggregator-sdk": "^0.10.0",
+    "@mysten/sui": "^1.29.1",
+    "@solana/spl-memo": "^0.2.5",
+    "@solana/spl-token": "^0.4.13",
+    "@solana/web3.js": "^1.98.2",
+    "@wormhole-foundation/sdk": "^1.18.0",
+    "aftermath-ts-sdk": "^1.3.0",
+    "axios": "^1.9.0",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-rate-limit": "^7.5.0",
+    "memo-protocol-sdk": "^1.1.0",
+    "web3": "^4.16.0"
+  },
+  "devDependencies": {
+    "@types/bs58": "^4.0.4",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.11.24",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
