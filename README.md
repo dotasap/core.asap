@@ -8,6 +8,8 @@ dotASAP is a blockchain service that enables seamless token swaps, bridging acro
 2. **Web Service**: Provides a user interface and API endpoints
 3. **Demo Wallet**: A demonstration wallet for testing transactions
 
+Built on top of [memo-protocol](https://github.com/dotasap/memo-protocol), a standardized protocol for encoding emitting Sui memos.
+
 ## Features
 
 - 🔄 Cross-chain token swaps
