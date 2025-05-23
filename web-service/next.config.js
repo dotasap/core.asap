@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
-    '@mysten/dapp-kit',
-    '@mysten/wallet-kit',
     'lru-cache',
     '@vanilla-extract/css'
   ],

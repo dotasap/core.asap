@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
 import { WalletSettings } from '@/models/WalletSettings';
-import { isValidSuiAddress } from '@mysten/sui/utils';
+import { PublicKey } from '@solana/web3.js';
 
 
 
@@ -47,9 +47,9 @@ export async function PUT(
     // Validate bridge addresses
     if (bridgeAddresses && Array.isArray(bridgeAddresses)) {
       for (const { chainId, address } of bridgeAddresses) {
-        if (chainId === 'sui') {
-          if (typeof address !== 'string' || !isValidSuiAddress(address as string)) {
-            return NextResponse.json({ error: `Invalid Sui address: ${address}` }, { status: 400 });
+        if (chainId === 'sol') {
+          if (typeof address !== 'string' || !PublicKey.isOnCurve(address as string)) {
+            return NextResponse.json({ error: `Invalid Solana address: ${address}` }, { status: 400 });
           }
         } else if (chainId === '1' || chainId === '56') { // Checks for Ethereum (1) and BSC (56)
           if (typeof address !== 'string' || !address.startsWith('0x') || address.length !== 42) {

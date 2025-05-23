@@ -1,35 +1,23 @@
 'use client';
-import { 
-
-  useSignPersonalMessage,
-  useSuiClient,
-  useWallets,
-  useDisconnectWallet,
-  useConnectWallet,
-  useCurrentWallet,
-  useAccounts,
-  WalletProvider,
-  SuiClientProvider,
-  createNetworkConfig,
-  ConnectButton, useCurrentAccount } from '@mysten/dapp-kit';
+import { ConnectButton, useWallet } from '@suiet/wallet-kit';
 
 export default function WalletButton() {
-  const currentAccount = useCurrentAccount();
-
-
-  const { currentWallet, connectionStatus, isConnected } = useCurrentWallet();
-
-  const { mutateAsync: connect } = useConnectWallet();
-  const { mutateAsync: disconnect } = useDisconnectWallet();
+  const wallet = useWallet();
 
   return (
-    <div>
-      {currentAccount ? (
-        <button onClick={() => disconnect()}>
-          Disconnect {currentAccount.address.slice(0, 6)}...{currentAccount.address.slice(-4)}
+    <div className="wallet-button-container">
+      {wallet.connected && wallet.account ? (
+        <button 
+          onClick={() => wallet.disconnect()}
+          className="wallet-disconnect-button"
+        >
+          Disconnect {wallet.account.address.slice(0, 6)}...{wallet.account.address.slice(-4)}
         </button>
       ) : (
-        <ConnectButton />
+        <ConnectButton 
+          label="Connect Wallet"
+          className="wallet-connect-button"
+        />
       )}
     </div>
   );

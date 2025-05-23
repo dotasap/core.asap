@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaArrowLeft, FaWallet, FaUnlink, FaPlus, FaTrash, FaEdit, FaCheck, FaTimes, FaCheckCircle } from 'react-icons/fa';
-import { useCurrentAccount } from '@mysten/dapp-kit';
+import { useWallet } from '@suiet/wallet-kit';
 import WalletButton from '@/components/WalletButton';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -20,7 +20,7 @@ interface WalletSettings {
 const CHAIN_OPTIONS = [
   { id: '1', name: 'Ethereum', disabled: true },
   { id: '56', name: 'BSC', disabled: true },
-  { id: 'sui', name: 'Sui' },
+  { id: 'sol', name: 'Solana' },
 ];
 
 const DEFAULT_SETTINGS: WalletSettings = {
@@ -35,7 +35,7 @@ function shortenAddress(address: string) {
 }
 
 export default function SettingsPage() {
-  const currentAccount = useCurrentAccount();
+  const wallet = useWallet();
   const { user, checkAuth } = useAuth();
   const [settings, setSettings] = useState<WalletSettings>(DEFAULT_SETTINGS);
   const [error, setError] = useState<string | null>(null);
@@ -44,12 +44,12 @@ export default function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (currentAccount) {
-      fetchWalletSettings(currentAccount.address);
+    if (wallet.connected && wallet.account) {
+      fetchWalletSettings(wallet.account.address);
     } else {
       setSettings(DEFAULT_SETTINGS);
     }
-  }, [currentAccount]);
+  }, [wallet.connected, wallet.account]);
 
   useEffect(() => {
     if (error || success) {
@@ -89,13 +89,13 @@ export default function SettingsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentAccount) {
+    if (!wallet.connected || !wallet.account) {
       setError('Please connect your wallet first');
       return;
     }
     setIsSaving(true);
     try {
-      const res = await fetch(`/api/wallets/${currentAccount.address}/settings`, {
+      const res = await fetch(`/api/wallets/${wallet.account.address}/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -157,17 +157,17 @@ export default function SettingsPage() {
     return CHAIN_OPTIONS.filter(chain => !selectedChains.has(chain.id));
   };
 
-  const isWalletLinked = user?.linkedWallets?.includes(currentAccount?.address || '');
+  const isWalletLinked = user?.linkedWallets?.includes(wallet.account?.address || '');
 
   const handleLinkWallet = async () => {
-    if (!currentAccount) return;
+    if (!wallet.connected || !wallet.account) return;
     setLinking(true);
     setError(null);
     try {
       const res = await fetch('/api/wallets/link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address: currentAccount.address })
+        body: JSON.stringify({ address: wallet.account.address })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to link wallet');
@@ -195,12 +195,12 @@ export default function SettingsPage() {
       <div>
         <div className="wallet-connect">
           <WalletButton />
-          {currentAccount && (
-            <p>{currentAccount.address}</p>
+          {wallet.connected && wallet.account && (
+            <p>{wallet.account.address}</p>
           )}
         </div>
 
-        {currentAccount ? (
+        {wallet.connected && wallet.account ? (
           isWalletLinked ? (
             <form onSubmit={handleSubmit} className="settings-form">
               <div className="form-group">
