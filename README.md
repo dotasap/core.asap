@@ -1,6 +1,8 @@
-# .ASAP - Do more, with less effort... ASAP
+# .ASAP
+### All blockchain transactions in one click
 
-dotASAP is a blockchain service that enables seamless token swaps, bridging across multiple blockchains and offramping to fiat right from your solana wallet - you do not have to leave your send interface to do more. The system consists of three main components:
+
+dotASAP is a blockchain service that enables seamless token swaps, bridging across multiple blockchains and offramping to fiat right from your Sui wallet - you do not have to leave your send interface to do more. The system consists of three main components:
 
 1. **Backend Engine**: Monitors and processes blockchain transactions
 2. **Web Service**: Provides a user interface and API endpoints
@@ -19,7 +21,7 @@ dotASAP is a blockchain service that enables seamless token swaps, bridging acro
 
 - Node.js (v18 or higher)
 - MongoDB
-- Solana CLI tools
+- Mysten/Sui
 - Paystack account (for offramping)
 
 ## Quick Start
@@ -51,7 +53,7 @@ dotASAP is a blockchain service that enables seamless token swaps, bridging acro
    ```
 
 5. Update the environment variables with your configuration:
-   - Add your Solana wallet private key
+   - Add your Sui keys
    - Add your Paystack API keys
    - Configure MongoDB connection
    - Set up JWT secret
@@ -82,16 +84,34 @@ asap-engine/
 ### Backend Engine
 
 The backend engine is responsible for:
-- Monitoring solana transactions
+- Monitoring Sui transactions
 - Processing swaps, bridges, and offramps
 - Managing refunds
 - Interfacing with external services
 
 Key features:
-- Bridge support (Solana, SUI)
+- Bridge support (Sui, Sol)
 - Transaction monitoring
 - Automatic refund handling
 - Offramp integration with Paystack by Stripe
+
+Environment Variables:
+- `PORT`: Server port (default: 3001)
+- `MAX_RETRIES`: Maximum retry attempts (default: 3)
+- `RETRY_DELAY_MS`: Retry delay in milliseconds (default: 1000)
+- `SUI_NETWORK`: Sui network (testnet/mainnet)
+- `SUI_RPC_URL`: Sui RPC endpoint
+- `WALLET_ADDRESS`: Sui wallet address for monitoring
+- `SUI_SECRET_KEY`: Sui wallet private key
+- `SUI_MNEMONIC`: Sui wallet mnemonic
+- `SOL_PRIVATE_KEY`: Solana wallet private key
+- `ETH_PRIVATE_KEY`: Ethereum wallet private key
+- `BRIDGED_SUI_TOKEN_MINT`: Bridged SUI token address
+- `BRIDGED_SUI_TOKEN_DECIMALS`: Token decimals
+- `WEB_SERVICE_URL`: Web service URL
+- `SERVICE_TOKEN`: Service authentication token
+- `PAYSTACK_SECRET_KEY`: Paystack API key
+- `PAYSTACK_BASE_URL`: Paystack API URL
 
 ### Web Service
 
@@ -107,10 +127,16 @@ Key features:
 - JWT authentication
 - Paystack integration
 
+Environment Variables:
+- `MONGODB_URI`: MongoDB connection string
+- `JWT_SECRET`: JWT signing key
+- `SERVICE_TOKEN`: Service authentication token
+- `PAYSTACK_SECRET_KEY`: Paystack API key
+- `ASAP_DOMAIN`: ASAP domain address
 
 ### Demo Wallet
 
-A demonstration wallet that supports so that it can be used to demonstrate memos:
+A demonstration wallet that supports:
 - Creating and managing wallets
 - Sending and receiving tokens
 - Viewing token balances
@@ -118,9 +144,12 @@ A demonstration wallet that supports so that it can be used to demonstrate memos
 
 Key features:
 - React + Vite
-- Solana wallet integration
+- Sui wallet integration
 - Token balance tracking
 - Network switching
+
+Environment Variables:
+- `VITE_ASAP_DOMAIN`: ASAP domain address
 
 ## Development
 
@@ -145,36 +174,3 @@ npm run dev
 ```bash
 npm run build
 ```
-
-## Environment Variables
-
-### Backend Engine (.env)
-- `DEV_URL`: Solana devnet RPC URL
-- `DEV2_URL`: Backup Solana devnet RPC URL
-- `PORT`: Server port (default: 3001)
-- `WEB_SERVICE_URL`: Web service URL
-- `SERVICE_TOKEN`: Service authentication token
-- `SOL_SWAP_WALLET_PRIVATE_KEY`: Solana wallet private key
-- `SUI_SECRET_KEY`: SUI wallet private key
-- `PAYSTACK_SECRET_KEY`: Paystack API key
-
-### Web Service (.env)
-- `MONGODB_URI`: MongoDB connection string
-- `JWT_SECRET`: JWT signing key
-- `SERVICE_TOKEN`: Service authentication token
-- `PAYSTACK_SECRET_KEY`: Paystack API key
-- `ASAP_DOMAIN`: ASAP domain address
-
-### Demo Wallet (.env for demo only) 
-- `VITE_ASAP_DOMAIN`: ASAP domain address
-
-## License
-
-This project is licensed under the MIT License.
-
-## Acknowledgments
-
-- Solana Foundation
-- Paystack
-- Jupiter exchange
-- Wormhole Foundation
