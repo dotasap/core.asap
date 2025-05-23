@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FaArrowLeft, FaWallet, FaUnlink, FaPlus, FaTrash, FaEdit, FaCheck, FaTimes, FaCheckCircle } from 'react-icons/fa';
-import { useWallet } from '@solana/wallet-adapter-react';
+import { useCurrentAccount } from '@mysten/dapp-kit';
 import WalletButton from '@/components/WalletButton';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -35,7 +35,7 @@ function shortenAddress(address: string) {
 }
 
 export default function SettingsPage() {
-  const { publicKey } = useWallet();
+  const currentAccount = useCurrentAccount();
   const { user, checkAuth } = useAuth();
   const [settings, setSettings] = useState<WalletSettings>(DEFAULT_SETTINGS);
   const [error, setError] = useState<string | null>(null);
@@ -44,12 +44,12 @@ export default function SettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
-    if (publicKey) {
-      fetchWalletSettings(publicKey.toString());
+    if (currentAccount) {
+      fetchWalletSettings(currentAccount.address);
     } else {
       setSettings(DEFAULT_SETTINGS);
     }
-  }, [publicKey]);
+  }, [currentAccount]);
 
   useEffect(() => {
     if (error || success) {
@@ -89,13 +89,13 @@ export default function SettingsPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!publicKey) {
+    if (!currentAccount) {
       setError('Please connect your wallet first');
       return;
     }
     setIsSaving(true);
     try {
-      const res = await fetch(`/api/wallets/${publicKey.toString()}/settings`, {
+      const res = await fetch(`/api/wallets/${currentAccount.address}/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -157,17 +157,17 @@ export default function SettingsPage() {
     return CHAIN_OPTIONS.filter(chain => !selectedChains.has(chain.id));
   };
 
-  const isWalletLinked = user?.linkedWallets?.includes(publicKey?.toString() || '');
+  const isWalletLinked = user?.linkedWallets?.includes(currentAccount?.address || '');
 
   const handleLinkWallet = async () => {
-    if (!publicKey) return;
+    if (!currentAccount) return;
     setLinking(true);
     setError(null);
     try {
       const res = await fetch('/api/wallets/link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ address: publicKey.toString() })
+        body: JSON.stringify({ address: currentAccount.address })
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to link wallet');
@@ -195,12 +195,12 @@ export default function SettingsPage() {
       <div>
         <div className="wallet-connect">
           <WalletButton />
-          {publicKey && (
-            <p>{publicKey.toString()}</p>
+          {currentAccount && (
+            <p>{currentAccount.address}</p>
           )}
         </div>
 
-        {publicKey ? (
+        {currentAccount ? (
           isWalletLinked ? (
             <form onSubmit={handleSubmit} className="settings-form">
               <div className="form-group">

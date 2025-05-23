@@ -18,7 +18,7 @@ export default function WelcomePage() {
         <ul className="instructions-list">
           <li><span className="step-icon">1</span> Open up your wallet</li>
           <li><span className="step-icon">2</span> Choose your preferred token</li>
-          <li><span className="step-icon">3</span> Send to <b>swap.asap</b></li>
+          <li><span className="step-icon">3</span> Send to <b>tx.asap</b></li>
           <li><span className="step-icon">4</span> Get your swapped token ASAP.</li>
         </ul>
       </div>

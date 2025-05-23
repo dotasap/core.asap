@@ -9,12 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mysten/dapp-kit": "^0.14.9",
     "@mysten/sui": "^1.29.1",
-    "@solana/wallet-adapter-base": "^0.9.26",
-    "@solana/wallet-adapter-react": "^0.15.38",
-    "@solana/wallet-adapter-react-ui": "^0.9.38",
-    "@solana/wallet-adapter-wallets": "^0.19.36",
-    "@solana/web3.js": "^1.98.2",
+    "@mysten/wallet-kit": "^0.5.1",
+    "@tanstack/react-query": "^5.28.0",
     "axios": "^1.9.0",
     "bcryptjs": "^2.4.3",
     "jose": "^6.0.11",

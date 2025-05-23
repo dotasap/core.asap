@@ -48,6 +48,6 @@ export async function startTransactionMonitoring() {
         const errorMsg = err instanceof Error ? err.message : String(err);
         console.error('Polling error:', err);
     } finally {
-        setTimeout(startTransactionMonitoring, 10000);
+        setTimeout(startTransactionMonitoring, 5000);
     }
 }

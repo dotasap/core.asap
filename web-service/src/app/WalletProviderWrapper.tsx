@@ -1,33 +1,29 @@
 'use client';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { PhantomWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { clusterApiUrl } from '@solana/web3.js';
-import { useMemo } from 'react';
+import { SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
+import { getFullnodeUrl } from '@mysten/sui/client';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WalletKitProvider } from '@mysten/wallet-kit';
+
+const queryClient = new QueryClient();
 
 export default function WalletProviderWrapper({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const network = WalletAdapterNetwork.Devnet;
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-  const wallets = useMemo(
-    () => [
-      new PhantomWalletAdapter(),
-    ],
-    []
-  );
-
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <QueryClientProvider client={queryClient}>
+      <SuiClientProvider networks={{
+        mainnet: { url: getFullnodeUrl('mainnet') },
+        testnet: { url: getFullnodeUrl('testnet') },
+        devnet: { url: getFullnodeUrl('devnet') }
+      }} defaultNetwork="testnet">
+        <WalletKitProvider>
+          <WalletProvider autoConnect>
+            {children}
+          </WalletProvider>
+        </WalletKitProvider>
+      </SuiClientProvider>
+    </QueryClientProvider>
   );
 } 
