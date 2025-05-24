@@ -14,12 +14,12 @@ export default function WelcomePage() {
       <p className="subtitle">Revolutionising transactions as we know them</p>
 
       <div className="sub-container">
-        <h2>Swap your tokens in seconds</h2>
+        <h2>All blockchain transactions in one click</h2>
         <ul className="instructions-list">
-          <li><span className="step-icon">1</span> Open up your wallet</li>
-          <li><span className="step-icon">2</span> Choose your preferred token</li>
-          <li><span className="step-icon">3</span> Send to <b>tx.asap</b></li>
-          <li><span className="step-icon">4</span> Get your swapped token ASAP.</li>
+          <li><span className="step-icon">1</span> Dedicated Memo Protocol</li>
+          <li><span className="step-icon">2</span> Swap tokens in seconds</li>
+          <li><span className="step-icon">3</span> Bridge tokens to/from any chain</li>
+          <li><span className="step-icon">4</span> Direct off-ramp in one click</li>
         </ul>
       </div>
     </div>
