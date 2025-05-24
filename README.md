@@ -17,7 +17,6 @@ Built on top of [memo-protocol](https://github.com/dotasap/memo-protocol), a sta
 - 💱 Offramp to fiat currency
 - 🔍 Real-time transaction monitoring
 - 🔒 Secure wallet integration
-- 📱 Responsive web interface
 
 ## Prerequisites
 
@@ -142,7 +141,6 @@ A demonstration wallet that supports:
 - Creating and managing wallets
 - Sending and receiving tokens
 - Viewing token balances
-- Network switching (Devnet/Mainnet)
 
 Key features:
 - React + Vite
